@@ -7,7 +7,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports  = {
     mode: 'development',
     entry: {
-        app: path.resolve(__dirname, '../index.js'),
+        bundle: path.resolve(__dirname, '../index.js')
     },
     output: {
         path: path.resolve(__dirname, '../dist'),
@@ -42,12 +42,12 @@ module.exports  = {
                             plugins: () => [
                                 require('postcss-flexbugs-fixes'),
                                 require('postcss-preset-env')({
-                                  autoprefixer: {
-                                    flexbox: 'no-2009',
-                                  },
-                                  stage: 3,
+                                    autoprefixer: {
+                                        flexbox: 'no-2009',
+                                    },
+                                    stage: 3,
                                 }),
-                              ]
+                            ]
                         }
                     },
                     'less-loader',
@@ -83,15 +83,8 @@ module.exports  = {
             chunks: 'all',
             //TODO 当name设置成false时，chunk没有被引入html
             // name: false,
-            cacheGroups: {
-                vendor: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: 'vendors',
-                    chunks: 'all',
-                }
-            }
-          },
-          runtimeChunk: 'single'
+        },
+        runtimeChunk: true
     },
     plugins: [
         new CleanWebpackPlugin(['dist'], {
