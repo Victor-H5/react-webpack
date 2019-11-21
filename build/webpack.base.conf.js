@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports  = {
     mode: 'development',
@@ -87,13 +88,13 @@ module.exports  = {
                 vendor: {
                     test: /[\\/]node_modules[\\/]/,
                     name: 'vendors',
-                    chunks: 'all',
                 }
             }
           },
           runtimeChunk: 'single'
     },
     plugins: [
+        new BundleAnalyzerPlugin(),
         new CleanWebpackPlugin(['dist'], {
             root: path.resolve(__dirname, '../')
         }),
