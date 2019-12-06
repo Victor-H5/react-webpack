@@ -1,10 +1,27 @@
 import React, { Component } from 'react';
+import { HashRouter } from 'react-router-dom';
+import { hot } from 'react-hot-loader/root';
+import { Layout } from 'antd';
+import Header from './components/header/index';
+import Sider from './components/sider/index';
+import Content from './components/Content/index';
 import style from './App.less';
 
-export default class App extends Component {
+
+class App extends Component {
     render() {
         return (
-            <div className={style.main}>Hello world!</div>
+            <HashRouter>
+                <Layout className={style.layout}>
+                    <Header/>
+                    <Layout>
+                        <Sider/>
+                        <Content/>
+                    </Layout>
+                </Layout>
+            </HashRouter>
         )
     }
 }
+
+export default hot(App);

@@ -1,31 +1,63 @@
+const merge = require('webpack-merge');
 const path = require('path');
+const baseConfig = require('./webpack.base.conf');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports  = {
+const config = merge(baseConfig, {
     mode: 'development',
-    devServer: {
-        contentBase: '../dist'
+    output: {
+        filename: '[name].[hash:8].js',
+        chunkFilename: '[name].[hash:8].js',
     },
-    optimization: {
-        splitChunks: {
-            chunks: 'all',
-            //TODO 当name设置成false时，chunk没有被引入html
-            // name: false,
-        },
-        runtimeChunk: true
+    module: {
+        rules: [
+            {
+                test: /\.(le|c)ss$/,
+                include: path.resolve(__dirname, '../src'),
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 2,
+                            modules: true,
+                            localIdentName: '[name]-[local]-[hash:base64:5]'
+                        }
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            ident: 'postcss',
+                            plugins: () => [
+                                require('postcss-flexbugs-fixes'),
+                                require('postcss-preset-env')({
+                                    autoprefixer: {
+                                        flexbox: 'no-2009',
+                                    },
+                                    stage: 3,
+                                }),
+                            ]
+                        }
+                    },
+                    {
+                        loader: 'less-loader',
+                        options: {
+                            javascriptEnabled: true
+                        }
+                    }
+                ]
+            },
+
+        ]
+    },
+    devtool: 'inline-source-map',
+    devServer: {
+        contentBase: '../dist',
+        hot: true,
     },
     plugins: [
-        new CleanWebpackPlugin(['dist'], {
-            root: path.resolve(__dirname, '../')
-        }),
-        new HtmlWebpackPlugin({
-            template: 'index.html',
-        })
-    ],
-    performance: {
-        hints: false
-    }
-}
+        new webpack.HotModuleReplacementPlugin()
+    ]
+});
+
+module.exports = config;

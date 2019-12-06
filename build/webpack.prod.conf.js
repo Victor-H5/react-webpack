@@ -1,32 +1,20 @@
+const merge = require('webpack-merge');
 const path = require('path');
+const baseConfig = require('./webpack.base.conf');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const TerserJSPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
-module.exports  = {
-    mode: 'development',
-    entry: {
-        bundle: path.resolve(__dirname, '../index.js')
-    },
-    output: {
-        path: path.resolve(__dirname, '../dist'),
-        filename: '[name].[chunkhash:8].js',
-        chunkFilename: '[name].[chunkhash:8].js', //or [id].chubk.js?
-        publicPath: '', //default value
-    },
+const config = merge(baseConfig, {
+    mode: 'production',
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
-                loader: 'babel-loader'
-            },
-            {
-                test: /\.less$/,
-                exclude: /node_modules/,
+                test: /\.(le|c)ss$/,
+                include: path.resolve(__dirname, '../src'),
                 use: [
-                    'style-loader',
+                    MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
                         options: {
@@ -42,65 +30,44 @@ module.exports  = {
                             plugins: () => [
                                 require('postcss-flexbugs-fixes'),
                                 require('postcss-preset-env')({
-                                    autoprefixer: {
-                                        flexbox: 'no-2009',
-                                    },
-                                    stage: 3,
+                                  autoprefixer: {
+                                    flexbox: 'no-2009',
+                                  },
+                                  stage: 3,
                                 }),
-                            ]
+                              ]
                         }
                     },
-                    'less-loader',
+                    {
+                        loader: 'less-loader',
+                        options: {
+                            javascriptEnabled: true
+                        }
+                    }
                 ]
-            },
-            {
-                test: /\.css$/,
-                use: [
-                    'style-loader',
-                    'css-loader'
-                ]
-            },
-            {
-                test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-                loader: 'url-loader',
-                options: {
-                    limit: 8192,
-                    name: 'dist/[name].[hash:8].[ext]'
-                }
             }
         ]
-    },
-    devServer: {
-        contentBase: '../dist'
-    },
-    resolve: {
-        alias: {
-        },
-        extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
     },
     optimization: {
         splitChunks: {
             chunks: 'all',
-            //TODO 当name设置成false时，chunk没有被引入html
-            // name: false,
-        },
-        runtimeChunk: true
+            //name false的时候，chunk名字不确定，会导致无法导入html
+            name: true
+          },
+        runtimeChunk: 'single',
+        minimizer: [
+            new TerserJSPlugin({}),
+            new OptimizeCSSAssetsPlugin({})
+        ]
     },
     plugins: [
-        new CleanWebpackPlugin(['dist'], {
-            root: path.resolve(__dirname, '../')
-        }),
-        new HtmlWebpackPlugin({
-            template: 'index.html',
-        }),
-        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         new MiniCssExtractPlugin({
-            filename: 'dist/[name].[contenthash:8].css',
-            chunkFilename: 'dist/[name].[contenthash:8].chunk.css',
+            filename: '[name].[contenthash:8].css',
+            chunkFilename: '[name].[contenthash:8].chunk.css',
         }),
+        new webpack.HashedModuleIdsPlugin()
+    ]
 
-    ],
-    performance: {
-        hints: false
-    }
-}
+});
+
+module.exports = config;
