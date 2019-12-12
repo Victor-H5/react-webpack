@@ -1,0 +1,16 @@
+package.json
+package-lock.json
+build/
+dist/
+node_modules/
+.dockerignore
+.DS_Store
+.eslintignore
+.eslintcache
+**/*.svg
+docker
+.editorconfig
+Dockerfile*
+.gitignore
+.prettierignore
+LICENSE

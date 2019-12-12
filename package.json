@@ -7,7 +7,19 @@
     "start": "cross-env NODE_ENV=development webpack-dev-server --config ./build/webpack.dev.conf.js --open",
     "build": "cross-env NODE_ENV=production webpack --progress --colors --config ./build/webpack.prod.conf.js",
     "build:perf": "cross-env NODE_ENV=production webpack --progress --colors --config ./build/webpack.perf.conf.js",
+    "lint-staged": "lint-staged",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,tsx,ts,less,md,json}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint-staged"
+    }
   },
   "repository": {
     "type": "git",
@@ -39,14 +51,17 @@
     "css-loader": "^1.0.1",
     "file-loader": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
+    "husky": "^3.1.0",
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
+    "lint-staged": "^9.5.0",
     "mini-css-extract-plugin": "^0.5.0",
     "node-sass": "^4.10.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-flexbugs-fixes": "^4.1.0",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.6.0",
+    "prettier": "1.19.1",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
