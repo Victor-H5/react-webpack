@@ -8,7 +8,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports  = {
     mode: 'development',
     entry: {
-        app: ['react-hot-loader/patch', path.resolve(__dirname, '../src/index.js')]
+        app: ['@babel/polyfill', 'react-hot-loader/patch', path.resolve(__dirname, '../src/index.js')]
     },
     output: {
         path: path.resolve(__dirname, '../dist'),

@@ -54,7 +54,8 @@ const config = merge(baseConfig, {
     devServer: {
         contentBase: '../dist',
         hot: true,
-        port: 9000
+        port: 9000,
+		disableHostCheck: true
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin()
