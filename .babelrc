@@ -1,28 +1,24 @@
 {
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "targets": {
-          "browsers": [
-            "> 1%",
-            "last 5 versions",
-            "ie >= 9"
-          ]
-        },
-        "useBuiltIns": "usage"
-      }
-    ],
-    "@babel/preset-react"
-  ],
-  "retainLines": true,
-  "sourceMaps": "inline",
-  "plugins": [
-    ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css"}, "ant"],
-    ["import", { "libraryName": "lodash", "libraryDirectory": ""}, "lodash"],
-    "@babel/plugin-syntax-dynamic-import",
-    ["@babel/plugin-proposal-decorators", { "legacy": true }],
-    ["@babel/plugin-proposal-class-properties", { "loose" : true }],
-    "react-hot-loader/babel"
-  ]
+	"presets": [
+		[
+			"@babel/preset-env",
+			{
+				"targets": {
+					"browsers": ["> 1%", "last 5 versions", "ie >= 9"]
+				},
+				"useBuiltIns": "usage"
+			}
+		],
+		"@babel/preset-react"
+	],
+	"retainLines": true,
+	"sourceMaps": "inline",
+	"plugins": [
+		["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }, "ant"],
+		["import", { "libraryName": "lodash", "libraryDirectory": "" }, "lodash"],
+		"@babel/plugin-syntax-dynamic-import",
+		["@babel/plugin-proposal-decorators", { "legacy": true }],
+		["@babel/plugin-proposal-class-properties", { "loose": true }],
+		"react-hot-loader/babel"
+	]
 }

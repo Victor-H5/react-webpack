@@ -13,4 +13,5 @@ docker
 Dockerfile*
 .gitignore
 .prettierignore
+.babelrc
 LICENSE

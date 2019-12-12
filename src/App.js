@@ -7,21 +7,20 @@ import Sider from './components/sider/index';
 import Content from './components/Content/index';
 import style from './App.less';
 
-
 class App extends Component {
-    render() {
-        return (
-            <HashRouter>
-                <Layout className={style.layout}>
-                    <Header/>
-                    <Layout>
-                        <Sider/>
-                        <Content/>
-                    </Layout>
-                </Layout>
-            </HashRouter>
-        )
-    }
+	render() {
+		return (
+			<HashRouter>
+				<Layout className={style.layout}>
+					<Header />
+					<Layout>
+						<Sider />
+						<Content />
+					</Layout>
+				</Layout>
+			</HashRouter>
+		);
+	}
 }
 
 export default hot(App);
