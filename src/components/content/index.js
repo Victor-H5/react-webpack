@@ -6,15 +6,15 @@ import style from './index.less';
 
 function getLoadableViewComponent(path) {
 	return Loadable({
-		loader: () => import(`../../views/${path}`),
+		loader: () => import(`../../views/${path}/${path}`),
 		loading() {
 			return null;
 		}
 	});
 }
 
-const Home = getLoadableViewComponent('home/home');
-const Detail = getLoadableViewComponent('detail/detail');
+const Home = getLoadableViewComponent('home');
+const Detail = getLoadableViewComponent('detail');
 
 export default function Content() {
 	return (

@@ -1,23 +1,17 @@
 import React, { Component } from 'react';
-import { HashRouter } from 'react-router-dom';
+import { HashRouter, Switch, Route } from 'react-router-dom';
 import { hot } from 'react-hot-loader/root';
-import { Layout } from 'antd';
-import Header from './components/header/index';
-import Sider from './components/sider/index';
-import Content from './components/Content/index';
-import style from './App.less';
+import BasicLayout from './layouts/basicLayout/basicLayout';
+import UserLayout from './layouts/userLayout/userLayout';
 
 class App extends Component {
 	render() {
 		return (
 			<HashRouter>
-				<Layout className={style.layout}>
-					<Header />
-					<Layout>
-						<Sider />
-						<Content />
-					</Layout>
-				</Layout>
+				<Switch>
+					<Route path="/user" component={UserLayout} />
+					<Route path="/" component={BasicLayout} />
+				</Switch>
 			</HashRouter>
 		);
 	}
