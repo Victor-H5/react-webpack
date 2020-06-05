@@ -1,0 +1,52 @@
+language: node_js
+
+node_js: 
+    - "10"
+
+services:
+    - docker
+
+stages: 
+    - name: test
+    - name: build and push
+        if: (branch = master) AND (type = push) AND (repo = Victor-H5/react-webpack)
+
+jobs: 
+    include:
+        - stage: test
+          script: 
+            - npm run test
+    
+        - stage: build and push
+          script: 
+            - docker build -t weitengfei/react-webpack:latest
+            - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+            - docker push weitengfei/react-webpack:latest
+
+        - name: deploy
+          script:
+            - npm run build
+          deploy: 
+            provider: pages
+            skip_cleanup: true
+            github_token: $GITHUB_TOKEN
+            local_dir: dist
+            repo: Victor-H5/Victor-H5.github.io
+            target_branch: master
+            on:
+                branch: master
+
+
+notifications: 
+    email:
+        recipients: 
+            - leon.wei@tradeshift.com
+        on_success: change
+        on_failure: always
+
+    webhooks:
+        urls: http://118.89.225.49:7778
+        if: branch = master
+
+
+
