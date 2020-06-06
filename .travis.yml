@@ -19,13 +19,6 @@ jobs:
             - npm run test
 
         - stage: build and push
-          name: 'docker build'
-          script:
-            - docker build -t weitengfei/react-webpack:${TRAVIS_COMMIT} .
-            - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-            - docker push weitengfei/react-webpack:${TRAVIS_COMMIT}
-
-        - name: 'deploy'
           script: 
             - npm run build
           deploy: 
