@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 // const devMode = process.env.NODE_ENV !== 'production'
 
@@ -21,7 +22,36 @@ module.exports  = {
             {
                 test: /\.(js|jsx)$/,
                 exclude: path.resolve(__dirname, 'node_modules'),
-                loader: 'babel-loader'
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            // cacheIdentifier:  // TODO
+                            cacheDirectory: true,
+                            cacheCompression: false
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.ts(x?)$/,
+                exclude: path.resolve(__dirname, 'node_modules'),
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            // cacheIdentifier:  // TODO
+                            cacheDirectory: true,
+                            cacheCompression: false
+                        }
+                    },
+                    {
+                        loader: 'ts-loader',
+                        options: {
+                            transpileOnly: true
+                          }
+                    }
+                ]
             },
             {
                 test: /\.(le|c)ss$/,
@@ -58,7 +88,7 @@ module.exports  = {
     resolve: {
         alias: {
         },
-        extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
+        extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx', ".ts", ".tsx"],
     },
     plugins: [
         new CleanWebpackPlugin(['dist'], {
@@ -68,7 +98,8 @@ module.exports  = {
             title: 'react-webpack',
             template: './src/index.html',
         }),
-        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+        new ForkTsCheckerWebpackPlugin()
     ],
     performance: {
         hints: false

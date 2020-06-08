@@ -32,6 +32,12 @@ function Sider(props) {
 						<span>Detail</span>
 					</Link>
 				</Menu.Item>
+				<Menu.Item key="about">
+					<Link to="/about">
+						<Icon type="pie-chart" />
+						<span>About</span>
+					</Link>
+				</Menu.Item>
 			</Menu>
 		</Layout.Sider>
 	);

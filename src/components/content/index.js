@@ -15,6 +15,7 @@ function getLoadableViewComponent(path) {
 
 const Home = getLoadableViewComponent('home');
 const Detail = getLoadableViewComponent('detail');
+const About = getLoadableViewComponent('about');
 
 export default function Content() {
 	return (
@@ -23,6 +24,7 @@ export default function Content() {
 				<Route exact path="/" render={() => <Redirect to="/home" />} />
 				<Route exact path="/home" component={Home} />
 				<Route exact path="/detail" component={Detail} />
+				<Route exact path="/about" component={About} />
 			</Switch>
 		</Layout.Content>
 	);
