@@ -37,7 +37,3 @@ notifications:
             - leon.wei@tradeshift.com
         on_success: change
         on_failure: always
-
-    webhooks:
-        urls: http://118.89.225.49:7778
-        if: branch = master
