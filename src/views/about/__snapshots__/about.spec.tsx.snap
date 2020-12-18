@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`About component should match snapshot 1`] = `
+<div>
+  <button
+    onClick={[Function]}
+  >
+    click
+  </button>
+  <Hello
+    compiler="TypeScript"
+    framework="React"
+  />
+</div>
+`;
