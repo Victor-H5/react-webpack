@@ -13,7 +13,7 @@ const Hello = (props: HelloProps) => (
 );
 
 class About extends React.Component {
-	log(): void {
+	log() {
 		console.log('about');
 	}
 
