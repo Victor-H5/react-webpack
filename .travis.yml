@@ -26,8 +26,8 @@ jobs:
             skip_cleanup: true
             github_token: $GITHUB_TOKEN
             local_dir: dist
-            repo: Victor-H5/Victor-H5.github.io
-            target_branch: master
+            repo: $TRAVIS_REPO_SLUG
+            target_branch: gh-pages
             on:
                 branch: master
 
