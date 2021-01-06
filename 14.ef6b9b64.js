@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[14],{OrwV:function(n,o){o["About component should match snapshot 1"]='\n<div>\n  <button\n    onClick={[Function]}\n  >\n    click\n  </button>\n  <Hello\n    compiler="TypeScript"\n    framework="React"\n  />\n</div>\n'}}]);

@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[15],{RXtW:function(n,o){o["About component should match snapshot 1"]="\n<div>\n  Detail\n</div>\n"}}]);
