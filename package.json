@@ -104,7 +104,7 @@
 	"dependencies": {
 		"@babel/polyfill": "^7.0.0",
 		"antd": "^3.26.0",
-		"axios": "^0.18.0",
+		"axios": "^0.21.1",
 		"classnames": "^2.2.6",
 		"lodash": "^4.17.15",
 		"moment": "^2.24.0",
